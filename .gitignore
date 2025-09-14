@@ -80,4 +80,11 @@ Desktop.ini
 logs/
 *.tmp
 *.swp
+<<<<<<< HEAD
+=======
+*.js
+www/
+*.txt
+*bak*
+>>>>>>> 2be8848 (Initial commit)
 *.bak
