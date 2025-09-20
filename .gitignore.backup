@@ -7,7 +7,6 @@ tmp/
 build/
 /out-tsc
 /bazel-out
-/.angular
 /.angular/cache
 
 # Coverage and test output
@@ -65,6 +64,11 @@ yarn-error.log*
 !.vscode/extensions.json
 .history/*
 
+# Coverage and test output
+/coverage
+testem.log
+libpeerconnection.log
+
 # Miscellaneous
 .sass-cache/
 connect.lock
@@ -87,31 +91,10 @@ logs/
 *.swp
 *.bak
 *.js
-/www
 www/
 *.txt
 *bak*
 cache/
-
-*~
-*.sw[mnpcod]
-.tmp
-*.tmp.*
-UserInterfaceState.xcuserstate
-$RECYCLE.BIN/
-/.sourcemaps
-/.versions
-
-# Ionic
-/.ionic
-/platforms
-/plugins
-
-# Miscellaneous
-.sass-cache/
-/.nx
-/.nx/cache
-/connect.lock
 
 <<<<<<< HEAD
 =======
