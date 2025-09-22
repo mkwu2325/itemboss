@@ -1,0 +1,161 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- User Profile Section -->
+  <div class="profile-section" *ngIf="currentUser">
+    <div class="profile-avatar">
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </div>
+    <div class="profile-info">
+      <h2>{{ currentUser.username }}</h2>
+      <p>{{ currentUser.email }}</p>
+      <ion-badge color="success" *ngIf="currentUser.isAuthenticated">
+        <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+        Authenticated
+      </ion-badge>
+    </div>
+  </div>
+
+  <!-- Settings Sections -->
+  <div class="settings-content">
+    
+    <!-- Appearance Settings -->
+    <div class="settings-section">
+      <div class="section-header">
+        <ion-icon name="color-palette-outline"></ion-icon>
+        <h3>Appearance</h3>
+      </div>
+      
+      <ion-item>
+        <ion-label>
+          <h2>Theme</h2>
+          <p>Choose your preferred color scheme</p>
+        </ion-label>
+        <ion-select 
+          [value]="settings.theme" 
+          (ionChange)="onThemeChange($event)"
+          interface="popover"
+          placeholder="Select theme">
+          <ion-select-option 
+            *ngFor="let option of themeOptions" 
+            [value]="option.value">
+            {{ option.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <!-- Notifications Settings -->
+    <div class="settings-section">
+      <div class="section-header">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <h3>Notifications</h3>
+      </div>
+      
+      <ion-item>
+        <ion-label>
+          <h2>Push Notifications</h2>
+          <p>Receive alerts and updates</p>
+        </ion-label>
+        <ion-toggle 
+          [checked]="settings.notifications" 
+          (ionChange)="onNotificationsToggle($event)">
+        </ion-toggle>
+      </ion-item>
+    </div>
+
+    <!-- Language Settings -->
+    <div class="settings-section">
+      <div class="section-header">
+        <ion-icon name="language-outline"></ion-icon>
+        <h3>Language & Region</h3>
+      </div>
+      
+      <ion-item>
+        <ion-label>
+          <h2>Language</h2>
+          <p>Choose your preferred language</p>
+        </ion-label>
+        <ion-select 
+          [value]="settings.language" 
+          (ionChange)="onLanguageChange($event)"
+          interface="popover"
+          placeholder="Select language">
+          <ion-select-option 
+            *ngFor="let option of languageOptions" 
+            [value]="option.value">
+            {{ option.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <!-- Data Management -->
+    <div class="settings-section">
+      <div class="section-header">
+        <ion-icon name="folder-outline"></ion-icon>
+        <h3>Data Management</h3>
+      </div>
+      
+      <ion-item button (click)="onExportData()">
+        <ion-icon name="download-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h2>Export Data</h2>
+          <p>Download your data as a backup</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item button (click)="onClearData()">
+        <ion-icon name="trash-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>
+          <h2>Clear Local Data</h2>
+          <p>Remove all stored data from this device</p>
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <!-- Support -->
+    <div class="settings-section">
+      <div class="section-header">
+        <ion-icon name="help-circle-outline"></ion-icon>
+        <h3>Support</h3>
+      </div>
+      
+      <ion-item button (click)="onContactSupport()">
+        <ion-icon name="mail-outline" slot="start" color="secondary"></ion-icon>
+        <ion-label>
+          <h2>Contact Support</h2>
+          <p>Get help from our support team</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="information-circle-outline" slot="start" color="medium"></ion-icon>
+        <ion-label>
+          <h2>App Version</h2>
+          <p>1.0.0</p>
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <!-- Account Actions -->
+    <div class="settings-section danger-section">
+      <div class="section-header">
+        <ion-icon name="person-outline"></ion-icon>
+        <h3>Account</h3>
+      </div>
+      
+      <ion-item button (click)="onLogout()">
+        <ion-icon name="log-out-outline" slot="start" color="danger"></ion-icon>
+        <ion-label color="danger">
+          <h2>Sign Out</h2>
+          <p>Sign out of your account</p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>

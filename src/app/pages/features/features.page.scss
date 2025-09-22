@@ -1,0 +1,163 @@
+// pages/features/features.page.scss
+.welcome-section {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 20px 0;
+
+  h2 {
+    color: var(--ion-color-primary);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 1rem;
+  }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+
+  .feature-card {
+    margin: 0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+
+    &.enabled {
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        transform: translateY(-2px);
+      }
+    }
+
+    &.disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    ion-card-header {
+      position: relative;
+      padding-bottom: 12px;
+
+      .feature-icon {
+        margin-bottom: 12px;
+
+        ion-icon {
+          font-size: 3rem;
+        }
+      }
+
+      ion-card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .coming-soon-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 0.75rem;
+      }
+    }
+
+    ion-card-content {
+      padding-top: 0;
+
+      p {
+        color: var(--ion-color-medium);
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .feature-actions {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+
+.stats-section {
+  margin-top: 32px;
+
+  h3 {
+    color: var(--ion-color-primary);
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+
+    .stat-item {
+      background: var(--ion-color-light);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+
+      ion-icon {
+        font-size: 2rem;
+      }
+
+      .stat-info {
+        h4 {
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin: 0;
+          color: var(--ion-color-dark);
+        }
+
+        p {
+          font-size: 0.875rem;
+          color: var(--ion-color-medium);
+          margin: 4px 0 0 0;
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .welcome-section {
+    margin-bottom: 24px;
+    padding: 16px 0;
+  }
+}
+
+// Dark theme adjustments
+@media (prefers-color-scheme: dark) {
+  .stats-section .stats-grid .stat-item {
+    background: var(--ion-color-dark-shade);
+  }
+}

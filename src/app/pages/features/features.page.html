@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Features</ion-title>
+    <ion-buttons slot="end" *ngIf="currentUser">
+      <ion-button (click)="onLogout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Welcome Message -->
+  <div class="welcome-section" *ngIf="currentUser">
+    <h2>Welcome, {{ currentUser.username }}!</h2>
+    <p>Explore the powerful features available in ItemBoss</p>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="features-grid">
+    <ion-card 
+      *ngFor="let feature of features; trackBy: trackByFeatureId"
+      [class]="'feature-card ' + (feature.isEnabled ? 'enabled' : 'disabled')"
+      (click)="onFeatureClick(feature)">
+      
+      <ion-card-header>
+        <div class="feature-icon">
+          <ion-icon 
+            [name]="feature.icon" 
+            [color]="feature.isEnabled ? feature.color : 'medium'">
+          </ion-icon>
+        </div>
+        <ion-card-title>{{ feature.title }}</ion-card-title>
+        <ion-badge 
+          *ngIf="!feature.isEnabled" 
+          color="medium" 
+          class="coming-soon-badge">
+          Coming Soon
+        </ion-badge>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{ feature.description }}</p>
+        
+        <div class="feature-actions" *ngIf="feature.isEnabled">
+          <ion-button 
+            fill="clear" 
+            size="small" 
+            [color]="feature.color">
+            Learn More
+            <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="stats-section" *ngIf="currentUser">
+    <h3>Quick Stats</h3>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <ion-icon name="cube-outline" color="primary"></ion-icon>
+        <div class="stat-info">
+          <h4>0</h4>
+          <p>Items</p>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <ion-icon name="calendar-outline" color="success"></ion-icon>
+        <div class="stat-info">
+          <h4>{{ currentUser.lastLogin | date:'short' }}</h4>
+          <p>Last Login</p>
+        </div>
+      </div>
+      
+      <div class="stat-item">
+        <ion-icon name="checkmark-circle-outline" color="warning"></ion-icon>
+        <div class="stat-info">
+          <h4>{{ getEnabledFeaturesCount() }}</h4>
+          <p>Active Features</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-content>
+  <!-- Loading indicator -->
+  <ion-loading 
+    [isOpen]="isLoading" 
+    message="Loading..."
+    spinner="crescent">
+  </ion-loading>
+
+  <!-- Main tab container -->
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button 
+        *ngFor="let tab of tabs; trackBy: trackByTabId"
+        [tab]="tab.id" 
+        [href]="tab.route"
+        [class.tab-selected]="tab.isActive"
+        (click)="onTabClick(tab.id)">
+        <ion-icon 
+          [name]="tab.icon" 
+          [color]="tab.isActive ? 'primary' : 'medium'">
+        </ion-icon>
+        <ion-label 
+          [color]="tab.isActive ? 'primary' : 'medium'">
+          {{ tab.title }}
+        </ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+
+    <ion-router-outlet></ion-router-outlet>
+  </ion-tabs>
+</ion-content>
+
