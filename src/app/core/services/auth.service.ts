@@ -4,7 +4,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User, LoginCredentials, ApiResponse } from '../../shared/interfaces/app.interfaces';
-import { STORAGE_KEYS, APP_CONFIG } from '../../shared/constants/app.constants';
+import { STORAGE_KEYS, APP_CONFIG} from '../../shared/constants/app.constants';
+import { ROUTE_PATHS } from '../../../app/app.routes';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,9 @@ export class AuthService {
           this.setUserSession(user, credentials.rememberMe);
           this.userSubject.next(user);
           
+          // Handle redirect after successful login
+          this.handlePostLoginRedirect();
+          
           return {
             success: true,
             data: user,
@@ -89,7 +93,7 @@ export class AuthService {
       tap(() => {
         this.clearUserSession();
         this.userSubject.next(null);
-        this.router.navigate(['/dashboard/login']);
+        this.router.navigate([`/${ROUTE_PATHS.DASHBOARD}/${ROUTE_PATHS.LOGIN}`]);
       }),
       map(() => ({
         success: true,
@@ -201,5 +205,34 @@ export class AuthService {
    */
   private generateMockToken(): string {
     return btoa(`${Date.now()}-${Math.random()}`);
+  }
+
+  private handlePostLoginRedirect(): void {
+    const redirectUrl = sessionStorage.getItem('redirectUrl');
+    
+    if (redirectUrl) {
+      sessionStorage.removeItem('redirectUrl');
+      this.router.navigate([redirectUrl]);
+    } else {
+      // Default redirect after login
+      this.router.navigate([`/${ROUTE_PATHS.DASHBOARD}/${ROUTE_PATHS.FEATURES}`]);
+    }
+  }
+
+  // Method to check if user can access a route
+  canAccessRoute(route: string, requiredRoles?: string[]): boolean {
+    const user = this.getCurrentUser();
+    
+    if (!user?.isAuthenticated) {
+      return false;
+    }
+
+    if (!requiredRoles || requiredRoles.length === 0) {
+      return true;
+    }
+
+    // For future role-based access control
+    const userRoles = (user as any).roles || ['user'];
+    return requiredRoles.some(role => userRoles.includes(role));
   }
 }
