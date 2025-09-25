@@ -1,6 +1,9 @@
 // app.routes.ts
 import { Routes } from '@angular/router';
 import { DashboardPage } from './dashboard/dashboard.page';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { LoginPage } from './pages/login/login.page';
 
 // Route constants for better maintainability
 export const ROUTE_PATHS = {
@@ -13,18 +16,22 @@ export const ROUTE_PATHS = {
 
 export const routes: Routes = [
   {
-    path: ROUTE_PATHS.EMPTY,
-    redirectTo: `/${ROUTE_PATHS.DASHBOARD}/${ROUTE_PATHS.LOGIN}`,
+    path: '',
+    redirectTo: ROUTE_PATHS.LOGIN,
     pathMatch: 'full'
+  },
+  {
+    path: ROUTE_PATHS.LOGIN,
+    component: LoginPage
   },
   {
     path: ROUTE_PATHS.DASHBOARD,
     component: DashboardPage,
     children: [
       {
-        path: ROUTE_PATHS.LOGIN,
+        path: ROUTE_PATHS.FEATURES,
         loadComponent: () =>
-          import('./pages/login/login.page').then(m => m.LoginPage)
+          import('./pages/features/features.page').then(m => m.FeaturesPage)
       },
       {
         path: ROUTE_PATHS.SETTINGS,
@@ -32,19 +39,14 @@ export const routes: Routes = [
           import('./pages/settings/settings.page').then(m => m.SettingsPage)
       },
       {
-        path: ROUTE_PATHS.FEATURES,
-        loadComponent: () =>
-          import('./pages/features/features.page').then(m => m.FeaturesPage)
-      },
-      {
-        path: ROUTE_PATHS.EMPTY,
-        redirectTo: ROUTE_PATHS.LOGIN,
+        path: '',
+        redirectTo: ROUTE_PATHS.FEATURES,
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '**',
-    redirectTo: `/${ROUTE_PATHS.DASHBOARD}/${ROUTE_PATHS.LOGIN}`
+    redirectTo: ROUTE_PATHS.LOGIN
   }
 ];

@@ -4,97 +4,69 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content class="ion-padding">
   <div class="login-container">
-    <!-- App Logo/Title -->
     <div class="logo-section">
       <ion-icon name="cube-outline" size="large" color="primary"></ion-icon>
       <h1>ItemBoss</h1>
       <p>Welcome back! Please sign in to continue.</p>
     </div>
-
-    <!-- Login Form -->
+    <!-- Form -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <!-- Email Field -->
-      <ion-item 
-        [class.ion-invalid]="isFieldInvalid('email')" 
-        [class.ion-touched]="loginForm.get('email')?.touched">
+      <!-- Email -->
+      <ion-item [class.ion-invalid]="isFieldInvalid('email')" [class.ion-touched]="loginForm.get('email')?.touched">
         <ion-label position="stacked">Email</ion-label>
         <ion-input
           formControlName="email"
           type="email"
           placeholder="Enter your email"
-          autocomplete="email"
-          [disabled]="isLoading">
+          autocomplete="email">
         </ion-input>
-        <ion-note slot="error" *ngIf="isFieldInvalid('email')">
+        <ion-note *ngIf="isFieldInvalid('email')">
           {{ getFieldError('email') }}
         </ion-note>
       </ion-item>
 
-      <!-- Password Field -->
-      <ion-item 
-        [class.ion-invalid]="isFieldInvalid('password')" 
-        [class.ion-touched]="loginForm.get('password')?.touched">
+      <!-- Password -->
+      <ion-item [class.ion-invalid]="isFieldInvalid('password')">
         <ion-label position="stacked">Password</ion-label>
         <ion-input
           formControlName="password"
           [type]="showPassword ? 'text' : 'password'"
           placeholder="Enter your password"
-          autocomplete="current-password"
-          [disabled]="isLoading">
+          autocomplete="current-password">
         </ion-input>
-        <ion-button 
-          slot="end" 
-          fill="clear" 
-          size="small"
-          (click)="onTogglePasswordVisibility()"
-          [disabled]="isLoading">
-          <ion-icon 
-            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'">
-          </ion-icon>
+        <ion-button slot="end" fill="clear" size="small" (click)="togglePasswordVisibility()" >
+          <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
         </ion-button>
-        <ion-note slot="error" *ngIf="isFieldInvalid('password')">
+        <!-- <ion-note color="danger">Test error message</ion-note> -->
+        <ion-note *ngIf="isFieldInvalid('password')">
           {{ getFieldError('password') }}
         </ion-note>
       </ion-item>
 
       <!-- Remember Me -->
       <ion-item lines="none" class="remember-me">
-        <ion-checkbox formControlName="rememberMe" [disabled]="isLoading"></ion-checkbox>
+        <ion-checkbox formControlName="rememberMe"></ion-checkbox>
         <ion-label class="ion-margin-start">Remember me</ion-label>
       </ion-item>
 
-      <!-- Login Button -->
-      <ion-button 
-        type="submit" 
-        expand="block" 
-        class="login-button"
-        [disabled]="!loginForm.valid || isLoading">
+      <!-- Submit -->
+      <ion-button type="submit" expand="block" class="login-button">
         <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
         <span *ngIf="!isLoading">Sign In</span>
         <span *ngIf="isLoading">Signing In...</span>
       </ion-button>
-
       <!-- Forgot Password -->
-      <ion-button 
-        fill="clear" 
-        expand="block" 
-        color="medium"
-        (click)="onForgotPassword()"
-        [disabled]="isLoading">
+      <ion-button fill="clear" expand="block" color="medium" (click)="onForgotPassword()" [disabled]="isLoading">
         Forgot Password?
       </ion-button>
     </form>
 
-    <!-- Sign Up Link -->
+    <!-- Sign Up -->
     <div class="signup-section">
       <p>Don't have an account?</p>
-      <ion-button 
-        fill="outline" 
-        expand="block"
-        (click)="onCreateAccount()"
-        [disabled]="isLoading">
+      <ion-button fill="outline" expand="block" (click)="onCreateAccount()" [disabled]="isLoading">
         Create Account
       </ion-button>
     </div>

@@ -1,4 +1,5 @@
 // pages/login/login.page.scss
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -23,12 +24,14 @@
     margin: 16px 0;
     color: var(--ion-color-primary);
   }
-
-  p {
+  div {
     font-size: 1rem;
-    color: var(--ion-color-medium);
-    margin: 8px 0 0 0;
+    color: var(--ion-color-dark-tint);
   }
+  p {
+    color: var(--ion-color-medium);
+  }
+
 }
 
 .login-form {
@@ -42,6 +45,7 @@
     &.ion-invalid.ion-touched {
       --border-color: var(--ion-color-danger);
     }
+
   }
 
   ion-note {
@@ -90,6 +94,7 @@
   .login-container {
     padding: 16px;
     min-height: calc(100vh - 160px);
+    --background:transparent;
   }
 
   .logo-section h1 {
@@ -98,8 +103,8 @@
 }
 
 // Dark theme adjustments
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme:light) {
   .login-form ion-item {
-    --background: var(--ion-color-dark-tint);
+    --background: var(--ion-color-light);
   }
 }

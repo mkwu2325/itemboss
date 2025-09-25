@@ -1,7 +1,8 @@
+
 <ion-content>
   <!-- Loading indicator -->
-  <ion-loading 
-    [isOpen]="isLoading" 
+  <ion-loading *ngIf="isLoading"
+    [isOpen]="true" 
     message="Loading..."
     spinner="crescent">
   </ion-loading>
